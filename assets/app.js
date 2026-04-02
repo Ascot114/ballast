@@ -91,8 +91,7 @@
     elements.passengerCountInput = document.getElementById("passengerCountInput");
     elements.multiAircraftToggle = document.getElementById("multiAircraftToggle");
     elements.multiAircraftPickerField = document.getElementById("multiAircraftPickerField");
-    elements.multiAircraftPicker = document.getElementById("multiAircraftPicker");
-    elements.multiAircraftPickerSummary = document.getElementById("multiAircraftPickerSummary");
+    elements.multiAircraftSelectionCount = document.getElementById("multiAircraftSelectionCount");
     elements.multiAircraftPickerList = document.getElementById("multiAircraftPickerList");
     elements.saveSummaryButton = document.getElementById("saveSummaryButton");
     elements.resetMultiButton = document.getElementById("resetMultiButton");
@@ -100,7 +99,6 @@
     elements.aircraftConfigCard = document.getElementById("aircraftConfigCard");
     elements.aircraftConfigList = document.getElementById("aircraftConfigList");
     elements.multiSummaryTable = document.getElementById("multiSummaryTable");
-    elements.dataFootnote = document.getElementById("dataFootnote");
   }
 
   function bindEvents() {
@@ -430,9 +428,8 @@
     elements.multiAircraftPickerField.hidden = !state.multi.allocationEnabled;
 
     if (!state.multi.allocationEnabled) {
-      if (elements.multiAircraftPicker) {
-        elements.multiAircraftPicker.open = false;
-      }
+      elements.multiAircraftSelectionCount.textContent = "0 aircraft selected";
+      elements.multiAircraftPickerList.innerHTML = "";
       return;
     }
 
@@ -448,16 +445,14 @@
               value="${escapeAttribute(aircraft.aircraft)}"
               ${checked}
             >
-            <span>${escapeHtml(aircraft.aircraft)}</span>
+            <span class="aircraft-picker__name">${escapeHtml(aircraft.aircraft)}</span>
             <span class="aircraft-picker__meta">${formatWeight(aircraft.weight)} kg</span>
           </label>
         `;
       })
       .join("");
 
-    elements.multiAircraftPickerSummary.textContent = selectedAircraft.length
-      ? `${selectedAircraft.length} aircraft selected`
-      : "Choose aircraft";
+    elements.multiAircraftSelectionCount.textContent = `${selectedAircraft.length} aircraft selected`;
   }
 
   function renderMultiSummary() {

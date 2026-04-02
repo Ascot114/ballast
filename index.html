@@ -195,13 +195,6 @@
         <section id="multiModePanel" class="mode-panel" hidden>
           <div class="mode-grid mode-grid--multi">
             <article class="card">
-              <div class="card__header">
-                <div>
-                  <p class="card__eyebrow">Passenger list</p>
-                  <h2>Multiple Passengers</h2>
-                </div>
-              </div>
-
               <div class="field-grid">
                 <label class="field">
                   <span>Number of passengers</span>
@@ -228,13 +221,18 @@
               </p>
 
               <div id="multiAircraftPickerField" class="field" hidden>
-                <span>Select aircraft for allocation</span>
-                <details id="multiAircraftPicker" class="aircraft-picker">
-                  <summary id="multiAircraftPickerSummary" class="aircraft-picker__summary">
-                    Choose aircraft
-                  </summary>
-                  <div id="multiAircraftPickerList" class="aircraft-picker__panel"></div>
-                </details>
+                <div class="field__header">
+                  <span>Select aircraft for allocation</span>
+                  <span id="multiAircraftSelectionCount" class="field__status" aria-live="polite">
+                    0 aircraft selected
+                  </span>
+                </div>
+                <div
+                  id="multiAircraftPickerList"
+                  class="aircraft-picker-list"
+                  role="group"
+                  aria-label="Select aircraft for allocation"
+                ></div>
                 <p class="field__hint">
                   Selected aircraft will appear in Aircraft Configuration below.
                 </p>
@@ -296,9 +294,6 @@
       </main>
 
       <footer class="footer">
-        <p id="dataFootnote">
-          Aircraft data is loaded from the site CSV and updated through GitHub submissions.
-        </p>
         <p class="footer__credit">
           Built by
           <a href="https://bradk.co.uk/contact" target="_blank" rel="noreferrer">Flt Lt B Kennedy</a>
