@@ -1,10 +1,21 @@
 import fs from "node:fs";
+import { pathToFileURL } from "node:url";
 
-const csvPath = process.env.CSV_PATH || "assets/aircraft_weights.csv";
-const issueBody = process.env.ISSUE_BODY || "";
-const issueCreatedAt = process.env.ISSUE_CREATED_AT || new Date().toISOString();
+if (isDirectExecution()) {
+  try {
+    main();
+  } catch (error) {
+    setOutput("error_message", error.message);
+    console.error(error.message);
+    process.exit(1);
+  }
+}
 
-try {
+export function main({
+  csvPath = process.env.CSV_PATH || "assets/aircraft_weights.csv",
+  issueBody = process.env.ISSUE_BODY || "",
+  issueCreatedAt = process.env.ISSUE_CREATED_AT || new Date().toISOString()
+} = {}) {
   const fields = parseIssueBody(issueBody);
   const aircraft = normaliseAircraft(fields["Aircraft tail number"]);
   const weight = normaliseWeight(fields["Aircraft weight (kg)"]);
@@ -48,24 +59,49 @@ try {
   setOutput("aircraft", aircraft);
   setOutput("weight", weight);
   setOutput("change_action", changeAction);
-} catch (error) {
-  setOutput("error_message", error.message);
-  console.error(error.message);
-  process.exit(1);
+
+  return {
+    aircraft,
+    weight,
+    changeAction
+  };
 }
 
-function parseIssueBody(markdown) {
+export function parseIssueBody(markdown) {
   const normalised = markdown.replace(/\r\n/g, "\n").trim();
-  const sectionPattern = /^###\s+(.+?)\n([\s\S]*?)(?=^###\s+.+?$|$)/gm;
   const fields = {};
-  let match;
 
-  while ((match = sectionPattern.exec(normalised)) !== null) {
-    const label = match[1].trim();
-    const value = match[2].trim();
-    fields[label] = value;
+  if (!normalised) {
+    return fields;
   }
 
+  let currentLabel = "";
+  let currentValueLines = [];
+
+  const flushField = () => {
+    if (!currentLabel) {
+      return;
+    }
+
+    fields[currentLabel] = currentValueLines.join("\n").trim();
+  };
+
+  normalised.split("\n").forEach((line) => {
+    const headingMatch = line.match(/^###\s+(.+?)\s*$/);
+
+    if (headingMatch) {
+      flushField();
+      currentLabel = headingMatch[1].trim();
+      currentValueLines = [];
+      return;
+    }
+
+    if (currentLabel) {
+      currentValueLines.push(line);
+    }
+  });
+
+  flushField();
   return fields;
 }
 
@@ -180,4 +216,8 @@ function setOutput(name, value) {
   }
 
   fs.appendFileSync(outputPath, `${name}=${String(value).replace(/\n/g, " ")}\n`);
+}
+
+function isDirectExecution() {
+  return Boolean(process.argv[1]) && pathToFileURL(process.argv[1]).href === import.meta.url;
 }
