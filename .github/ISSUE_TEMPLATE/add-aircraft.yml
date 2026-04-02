@@ -14,7 +14,7 @@ body:
     attributes:
       label: Aircraft tail number
       description: Use the tail number or aircraft label exactly as it should appear in the calculator.
-      placeholder: ZE999
+      placeholder: "ZE999"
     validations:
       required: true
 
@@ -23,7 +23,7 @@ body:
     attributes:
       label: Aircraft weight (kg)
       description: Enter the aircraft weight in kilograms.
-      placeholder: 416.25
+      placeholder: "416.25"
     validations:
       required: true
 
