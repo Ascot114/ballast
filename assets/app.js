@@ -132,17 +132,18 @@
 
     elements.passengerCountInput.addEventListener("input", (event) => {
       const target = event.target;
-
-      if (target.value === "") {
-        return;
-      }
-
-      syncIntegerInput(target, MIN_PASSENGERS, MAX_PASSENGERS);
-      updatePassengerCount(parseInteger(target.value, state.multi.passengerCount));
+      target.value = target.value.replace(/[^\d]/g, "");
     });
 
     elements.passengerCountInput.addEventListener("change", commitPassengerCountInput);
     elements.passengerCountInput.addEventListener("blur", commitPassengerCountInput);
+    elements.passengerCountInput.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") {
+        return;
+      }
+
+      commitPassengerCountInput(event);
+    });
     elements.passengerCountDecrement.addEventListener("click", () => {
       updatePassengerCount(state.multi.passengerCount - 1);
     });
