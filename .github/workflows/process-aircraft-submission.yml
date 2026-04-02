@@ -6,6 +6,7 @@ on:
       - opened
       - edited
       - reopened
+      - labeled
 
 permissions:
   contents: write
@@ -14,7 +15,13 @@ permissions:
 
 jobs:
   process-aircraft-submission:
-    if: contains(join(github.event.issue.labels.*.name, ','), 'aircraft-submission')
+    if: >
+      contains(join(github.event.issue.labels.*.name, ','), 'aircraft-submission') ||
+      (
+        startsWith(github.event.issue.title, 'Add aircraft:') &&
+        contains(github.event.issue.body, '### Aircraft tail number') &&
+        contains(github.event.issue.body, '### Aircraft weight (kg)')
+      )
     runs-on: ubuntu-latest
 
     steps:

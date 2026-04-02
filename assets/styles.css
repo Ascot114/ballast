@@ -235,9 +235,11 @@ main {
 .mode-grid {
   display: grid;
   gap: 1rem;
+  min-width: 0;
 }
 
 .card {
+  min-width: 0;
   padding: 1.1rem;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: var(--radius-lg);
@@ -439,6 +441,9 @@ main {
 }
 
 .table-shell {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
 }
 
