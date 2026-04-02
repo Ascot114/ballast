@@ -273,6 +273,53 @@ main {
   gap: 0.45rem;
 }
 
+.number-stepper {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.number-stepper__button {
+  width: 3rem;
+  min-height: 3rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--brand-strong);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: none;
+}
+
+.number-stepper__button:hover,
+.number-stepper__button:focus-visible {
+  transform: none;
+  border-color: rgba(31, 122, 140, 0.6);
+  box-shadow: 0 0 0 4px rgba(31, 122, 140, 0.14);
+  outline: none;
+}
+
+.number-stepper__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.number-stepper__input {
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.number-stepper__input::-webkit-outer-spin-button,
+.number-stepper__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .field span {
   font-size: 0.93rem;
   font-weight: 700;

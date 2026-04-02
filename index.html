@@ -198,15 +198,34 @@
               <div class="field-grid">
                 <label class="field">
                   <span>Number of passengers</span>
-                  <input
-                    id="passengerCountInput"
-                    type="number"
-                    min="1"
-                    max="50"
-                    step="1"
-                    inputmode="numeric"
-                    value="10"
-                  >
+                  <div class="number-stepper">
+                    <button
+                      id="passengerCountDecrement"
+                      class="number-stepper__button"
+                      type="button"
+                      aria-label="Decrease passenger count"
+                    >
+                      -
+                    </button>
+                    <input
+                      id="passengerCountInput"
+                      class="number-stepper__input"
+                      type="number"
+                      min="1"
+                      max="50"
+                      step="1"
+                      inputmode="numeric"
+                      value="10"
+                    >
+                    <button
+                      id="passengerCountIncrement"
+                      class="number-stepper__button"
+                      type="button"
+                      aria-label="Increase passenger count"
+                    >
+                      +
+                    </button>
+                  </div>
                 </label>
               </div>
 
