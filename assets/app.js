@@ -89,8 +89,6 @@
     elements.singleOutput = document.getElementById("singleOutput");
     elements.altAircraftTable = document.getElementById("altAircraftTable");
     elements.passengerCountInput = document.getElementById("passengerCountInput");
-    elements.passengerCountDecrement = document.getElementById("passengerCountDecrement");
-    elements.passengerCountIncrement = document.getElementById("passengerCountIncrement");
     elements.multiAircraftToggle = document.getElementById("multiAircraftToggle");
     elements.multiAircraftPickerField = document.getElementById("multiAircraftPickerField");
     elements.multiAircraftSelectionCount = document.getElementById("multiAircraftSelectionCount");
@@ -143,12 +141,6 @@
       }
 
       commitPassengerCountInput(event);
-    });
-    elements.passengerCountDecrement.addEventListener("click", () => {
-      updatePassengerCount(state.multi.passengerCount - 1);
-    });
-    elements.passengerCountIncrement.addEventListener("click", () => {
-      updatePassengerCount(state.multi.passengerCount + 1);
     });
 
     elements.multiAircraftToggle.addEventListener("change", (event) => {
@@ -333,8 +325,6 @@
 
   function renderPassengerInputs() {
     elements.passengerCountInput.value = String(state.multi.passengerCount);
-    elements.passengerCountDecrement.disabled = state.multi.passengerCount <= MIN_PASSENGERS;
-    elements.passengerCountIncrement.disabled = state.multi.passengerCount >= MAX_PASSENGERS;
     elements.passengerInputs.innerHTML = state.multi.passengers
       .map((passenger, index) => {
         return `
