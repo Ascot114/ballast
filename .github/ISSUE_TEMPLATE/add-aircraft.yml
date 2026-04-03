@@ -1,6 +1,6 @@
 name: Add aircraft
 description: Submit a new aircraft tail number and weight for the ballast calculator data file.
-title: "Add aircraft: "
+title: "Add new aircraft"
 labels:
   - aircraft-submission
 body:
