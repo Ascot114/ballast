@@ -57,18 +57,16 @@
       </div>
     </noscript>
 
-    <div id="loadOverlay" class="load-overlay is-active" role="alert" aria-live="assertive">
-      <div class="load-card">
-        <p id="loadEyebrow" class="hero__eyebrow">Loading aircraft data</p>
-        <h2 id="loadTitle">Preparing the ballast calculator</h2>
-        <p id="loadMessage">
-          Please wait while the latest aircraft data is retrieved.
-        </p>
-        <button id="retryLoadButton" class="button button--primary" type="button" hidden>
-          Retry
-        </button>
-      </div>
-    </div>
+    <div id="statusBanner" class="status-banner is-hidden"></div>
+    
+    <div id="loadOverlay" class="load-overlay">
+  <div class="load-card">
+    <p id="loadEyebrow" class="load-card__eyebrow"></p>
+    <h2 id="loadTitle" class="load-card__title">Preparing the calculator...</h2>
+    <p id="loadMessage" class="load-card__message">Please wait while we load aircraft data.</p>
+    <button id="retryLoadButton" class="button" style="display:none">Retry Loading</button>
+  </div>
+</div>
 
     <div class="page-shell">
       <header class="hero">
