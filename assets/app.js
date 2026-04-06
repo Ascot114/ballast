@@ -177,6 +177,19 @@
       renderMultiSummary();
     });
 
+    elements.passengerInputs.addEventListener("click", (event) => {
+      const toggle = event.target.closest(".staff-toggle");
+      if (!toggle) return;
+
+      const row = toggle.closest("[data-passenger-index]");
+      const index = Number(row.dataset.passengerIndex);
+      const passenger = state.multi.passengers[index];
+
+      passenger.isStaff = !passenger.isStaff;
+      toggle.classList.toggle("is-active", passenger.isStaff);
+      renderMultiSummary();
+    });
+
     elements.multiAircraftPickerList.addEventListener("change", handleAircraftPickerChange);
     elements.aircraftConfigList.addEventListener("input", handleAircraftConfigInteraction);
     elements.aircraftConfigList.addEventListener("change", handleAircraftConfigInteraction);
@@ -329,6 +342,7 @@
       .map((passenger, index) => {
         return `
           <div class="passenger-row" data-passenger-index="${index}">
+            <button type="button" class="staff-toggle ${passenger.isStaff ? 'is-active' : ''}" title="Toggle Staff Status">S</button>
             <input
               type="text"
               data-field="name"
@@ -628,6 +642,15 @@
       },
       headStyles: {
         fillColor: [15, 76, 92]
+      },
+      didParseCell: function (data) {
+        if (data.section === 'body' && data.column.index === 0) {
+          const rowIndex = data.row.index;
+          if (state.multi.passengers[rowIndex] && state.multi.passengers[rowIndex].isStaff) {
+            data.cell.styles.textColor = [220, 53, 69];
+            data.cell.styles.fontStyle = 'bold';
+          }
+        }
       },
       margin: { left: 14, right: 14 },
       columnStyles: showAllocation
@@ -966,7 +989,8 @@
   function buildPassengerList(count) {
     return Array.from({ length: count }, (_, index) => ({
       name: `Pax${index + 1}`,
-      weight: "0"
+      weight: "0",
+      isStaff: false
     }));
   }
 
@@ -979,7 +1003,8 @@
       } else {
         resized.push({
           name: `Pax${index + 1}`,
-          weight: "0"
+          weight: "0",
+          isStaff: false
         });
       }
     }
