@@ -1,7 +1,7 @@
 (function (global) {
   "use strict";
 
-  const LOCAL_AIRCRAFT_DATA_URL = "assets/aircraft_weights.csv";
+  const LOCAL_AIRCRAFT_DATA_URL = "aircraft_weights.csv";
   const DEFAULT_PASSENGER_COUNT = 10;
   const MAX_PASSENGERS = 50;
   const MIN_PASSENGERS = 1;
