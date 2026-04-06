@@ -826,3 +826,42 @@ main {
     min-width: 34rem;
   }
 }
+
+/* --- Staff Toggle Additions --- */
+
+.staff-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--panel-strong);
+  color: var(--muted);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(15, 27, 48, 0.05);
+}
+
+.staff-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.staff-toggle.is-active {
+  background: var(--danger);
+  color: #ffffff;
+  border-color: var(--danger-strong, #911c13);
+  box-shadow: 0 0 0 3px var(--danger-soft);
+}
+
+/* Updated layout to fit the staff toggle in the multi-mode passenger row */
+.passenger-row {
+  grid-template-columns: 48px minmax(0, 1fr) minmax(132px, 160px);
+}
